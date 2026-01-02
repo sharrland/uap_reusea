@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
-import 'package:uap_reusea/views/navbar/bottom_navbar.dart';
 import 'package:uap_reusea/routes/app_pages.dart';
+import 'package:uap_reusea/views/navbar/bottom_navbar.dart';
+import 'package:uap_reusea/view_models/user_controller.dart';
 
-void main() async {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Load environment variables
   await dotenv.load(fileName: ".env");
+  
+  // Initialize UserController globally (permanent)
+  Get.put(UserController(), permanent: true);
+  
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      title: 'High-Fi',
       debugShowCheckedModeBanner: false,
-      home: BottomNavbar(),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFFB83556),
+        ),
+        useMaterial3: true,
+        fontFamily: 'Roboto',
+      ),
+      home: const BottomNavbar(),
       getPages: AppPages.pages,
     );
   }
 }
-

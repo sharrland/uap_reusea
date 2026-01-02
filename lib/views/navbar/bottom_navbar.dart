@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:uap_reusea/view_models/navbar_controller.dart';
 import 'package:uap_reusea/views/home/home_view.dart';
 import 'package:uap_reusea/views/chat/chat_view.dart';
@@ -14,7 +13,6 @@ class BottomNavbar extends StatelessWidget {
   Widget build(BuildContext context) {
     final NavbarController controller = Get.put(NavbarController());
     
-
     final List<Widget> pages = [
       const HomeView(),
       const ChatView(),
@@ -35,7 +33,7 @@ class BottomNavbar extends StatelessWidget {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
-          selectedItemColor: Colors.red,
+          selectedItemColor: const Color(0xFFB83556), 
           unselectedItemColor: Colors.black,
           backgroundColor: Colors.white,
           elevation: 10,
