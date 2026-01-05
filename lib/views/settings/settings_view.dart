@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uap_reusea/view_models/settings_controller.dart';
 
 class SettingsView extends StatelessWidget {
   const SettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // INISIALISASI CONTROLLER
+    final SettingsController settingsController = Get.put(SettingsController());
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -29,10 +33,7 @@ class SettingsView extends StatelessWidget {
                 children: [
                   const Text(
                     'Account',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   _settingItem(
@@ -46,10 +47,7 @@ class SettingsView extends StatelessWidget {
 
                   const Text(
                     'Password',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   _settingItem(
@@ -89,7 +87,7 @@ class SettingsView extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  // authController.logout();
+                  settingsController.logout();
                 },
                 child: const Text(
                   'Logout',
@@ -107,10 +105,7 @@ class SettingsView extends StatelessWidget {
     );
   }
 
-  Widget _settingItem({
-    required String title,
-    required VoidCallback onTap,
-  }) {
+  Widget _settingItem({required String title, required VoidCallback onTap}) {
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -120,10 +115,7 @@ class SettingsView extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.grey.shade300),
         ),
-        child: Text(
-          title,
-          style: const TextStyle(fontSize: 14),
-        ),
+        child: Text(title, style: const TextStyle(fontSize: 14)),
       ),
     );
   }
