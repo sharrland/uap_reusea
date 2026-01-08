@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:uap_reusea/models/product_model.dart';
@@ -47,5 +48,27 @@ class ProductService {
     final data = await _apiService.get('/products/category/$category');
     final List list = data['products'];
     return list.map((item) => ProductModel.fromJson(item)).toList();
+  }
+
+  Future<bool> addProduct(ProductModel product) async {
+    try {
+      final data = await _apiService.post(
+        '/products/add',
+        product.toJson(),
+      );
+
+      return data.isNotEmpty;
+    } catch (e) {
+      print("Add Product Error: $e");
+      return false;
+    }
+  }
+
+  Future<bool> markAsSold(int productId) async {
+    return true;
+  }
+
+  Future<bool> deleteProduct(int productId) async {
+    return true;
   }
 }

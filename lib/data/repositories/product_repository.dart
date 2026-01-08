@@ -51,4 +51,24 @@ class ProductRepository {
       throw Exception('Failed to get products by category: $e');
     }
   }
+
+  Future<bool> addProduct(ProductModel product) async {
+    return await _service.addProduct(product);
+  }
+
+  Future<bool> markAsSold(int productId) async {
+    try {
+      return await _service.markAsSold(productId);
+    } catch (e) {
+      throw Exception('Failed to mark product as sold: $e');
+    }
+  }
+
+  Future<bool> deleteProduct(int productId) async {
+    try {
+      return await _service.deleteProduct(productId);
+    } catch (e) {
+      throw Exception('Failed to delete product: $e');
+    }
+  }
 }

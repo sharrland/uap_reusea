@@ -13,8 +13,7 @@ class ProfileController extends GetxController {
 
   final user = UserModel(
     username: '@bravestar71',
-    fullName: 'Karina Stephia',
-    avatar: 'https://i.pravatar.cc/300',
+    fullName: 'Emily Stephani',
   );
 
   @override

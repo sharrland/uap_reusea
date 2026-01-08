@@ -7,7 +7,6 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // INISIALISASI CONTROLLER
     final SettingsController settingsController = Get.put(SettingsController());
 
     return Scaffold(
@@ -73,7 +72,7 @@ class SettingsView extends StatelessWidget {
             ),
           ),
 
-          /// LOGOUT BUTTON
+          // Logout Button
           Padding(
             padding: const EdgeInsets.all(16),
             child: SizedBox(

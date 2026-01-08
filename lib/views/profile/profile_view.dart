@@ -10,12 +10,13 @@ class ProfileView extends StatelessWidget {
     final controller = Get.put(ProfileController());
 
     return Scaffold(
+      backgroundColor: const Color(0xFFFFEBEE),
       floatingActionButton: Obx(
         () => controller.isOnSale.value
             ? FloatingActionButton(
                 backgroundColor: Colors.pink,
                 onPressed: () {
-                  // Get.toNamed('/add-product');
+                   Get.toNamed('/add-product');
                 },
                 child: const Icon(Icons.add),
               )
@@ -38,8 +39,13 @@ class ProfileView extends StatelessWidget {
                   ),
                 ),
                 CircleAvatar(
-                  radius: 45,
-                  backgroundImage: NetworkImage(controller.user.avatar),
+                  radius: 55,
+                  backgroundColor: Colors.grey.shade300,
+                  child: Icon(
+                    Icons.person,
+                    size: 48,
+                    color: Colors.grey.shade700,
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Text(
@@ -52,7 +58,7 @@ class ProfileView extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
 
-                /// Toggle Button
+                // Toggle Button
                 Row(
                   children: [
                     Expanded(
@@ -85,7 +91,7 @@ class ProfileView extends StatelessWidget {
 
                 const SizedBox(height: 16),
 
-                /// Product Grid
+                // Product Grid
                GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -143,69 +149,134 @@ class ProfileView extends StatelessWidget {
   }
 
   Widget _productCard(product, {required bool isSold}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Expanded(
-        child: Stack(
+    return GestureDetector(
+    onTap: () => Get.toNamed(
+      '/tabs-product-detail',
+      arguments: {
+        'product': product,
+        'isSold': isSold,
+      },
+    ),
+
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: Colors.grey.shade200),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.03),
+              blurRadius: 4,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                product.thumbnail,
-                width: double.infinity,
-                fit: BoxFit.cover,
+            // IMAGE
+            Expanded(
+              flex: 3,
+              child: Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(5)),
+                    child: Image.network(
+                      product.thumbnail,
+                      width: double.infinity,
+                      fit: BoxFit.contain, 
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey.shade100,
+                          child: Icon(
+                            Icons.image,
+                            size: 40,
+                            color: Colors.grey.shade400,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
+                  // SOLD BADGE 
+                  if (isSold)
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                        height: 28,
+                        alignment: Alignment.center,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFFBFE7E2),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(5),
+                            bottomRight: Radius.circular(5),
+                          ),
+                        ),
+                        child: const Text(
+                          'SOLD',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            fontFamily: 'Inter',
+                            color: Colors.black87,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ),
 
-            /// SOLD BADGE
-            if (isSold)
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: 28,
-                  alignment: Alignment.centerLeft,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFBFE7E2), 
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
-                    ),
-                  ),
-                  child: const Text(
-                    'SOLD',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+            // PRODUCT INFO 
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Judul produk
+                  Text(
+                    product.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
                       fontSize: 12,
-                      color: Colors.black87,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      color: Colors.black,
+                      height: 1.2,
                     ),
                   ),
-                ),
+
+                  const SizedBox(height: 4),
+
+                  // Harga
+                  Text(
+                    '\$${product.price.toStringAsFixed(2)}',
+                    style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Inter',
+                      color: Colors.black,
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+                  const Text(
+                    'View Details',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 11,
+                      fontFamily: 'Inter',
+                    ),
+                  ),
+                ],
               ),
+            ),
           ],
         ),
       ),
-
-      const SizedBox(height: 8),
-      Text(
-        product.title,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(fontWeight: FontWeight.w600),
-      ),
-      Text(
-        '\$${product.price}',
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      const Text(
-        'View Details',
-        style: TextStyle(color: Colors.grey, fontSize: 12),
-      ),
-    ],
-  );
-}
-
+    );
+  }
 }

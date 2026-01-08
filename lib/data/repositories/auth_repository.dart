@@ -15,6 +15,7 @@ class AuthRepository {
 
       return null;
     } catch (e) {
+      // ignore: avoid_print
       print("Login error (Repository): $e");
       return null;
     }
@@ -27,15 +28,17 @@ class AuthRepository {
 
     if (result.containsKey('token')) {
       return UserModel.fromRegisterDummy(
-        result,                   // ✅ Map<String, dynamic>
-        result['email'],          // ✅ email
-        username,                 // ✅ name / full name
+        result,                  
+        result['email'],          
+        username,                 
       );
     }
 
+    // ignore: avoid_print
     print("Register failed (Repository): $result");
     return null;
   } catch (e) {
+    // ignore: avoid_print
     print("Register error (Repository): $e");
     return null;
   }

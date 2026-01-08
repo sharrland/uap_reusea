@@ -30,9 +30,12 @@ class EditProfileView extends StatelessWidget {
                   /// AVATAR
                   CircleAvatar(
                     radius: 48,
-                    backgroundImage: const NetworkImage(
-                      'https://i.pravatar.cc/300',
-                    ),
+                    backgroundColor: Colors.grey.shade300,
+                      child: Icon(
+                        Icons.person,
+                        size: 48,
+                        color: Colors.grey.shade700,
+                      ),
                   ),
                   const SizedBox(height: 8),
                   TextButton(

@@ -13,7 +13,7 @@ class HomeController extends GetxController {
   final products = <ProductModel>[].obs;
   final filteredProducts = <ProductModel>[].obs;
   final categories = <String>[].obs;
-  final users = <UserModel>[].obs; // ✅ Store users from API
+  final users = <UserModel>[].obs; // Store users from API
   final isLoading = false.obs;
   final isSearching = false.obs;
   final selectedCategory = Rx<String?>(null);
@@ -34,7 +34,7 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  // ✅ Initialize - fetch users and products
+  // Initialize - fetch users and products
   Future<void> _initialize() async {
     await Future.wait([
       fetchUsers(),
@@ -43,18 +43,19 @@ class HomeController extends GetxController {
     ]);
   }
 
-  // ✅ Fetch users from API
+  // Fetch users from API
   Future<void> fetchUsers() async {
     try {
       final result = await _userRepository.getUsers(10);
       users.assignAll(result);
     } catch (e) {
       // Silent fail - will use fallback if needed
+      // ignore: avoid_print
       print('Failed to load users: $e');
     }
   }
 
-  // ✅ Get seller info for a product
+  // Get seller info for a product
   UserModel getSellerForProduct(int productId) {
     if (users.isEmpty) {
       return UserModel.dummy();

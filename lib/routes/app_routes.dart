@@ -15,4 +15,13 @@ abstract class AppRoutes {
   static const productDetail = '/product-detail';
   static const makeOffer = '/make-offer';
   static const chatRoom = '/chat-room';
+
+  // Add product 
+  static const addProduct = '/add-product';
+
+  // Tabs Product
+  static const tabsProductDetail = '/tabs-product-detail';
+
+  // ignore: constant_identifier_names
+  static const ChatController = '/chat';
 }

@@ -47,9 +47,8 @@ class UserModel {
   factory UserModel.dummy() {
     return UserModel(
       username: '@bravestar71',
-      fullName: 'Karina Stephia',
-      avatar: 'https://i.pravatar.cc/300',
-      email: 'karina@example.com',
+      fullName: 'Emily Stephani',
+      email: 'emilyyy@example.com',
       phone: '+1234567890',
       token: 'dummy_token',
     );
@@ -66,7 +65,7 @@ class UserModel {
     };
   }
 
-  /// 🔥 Factory untuk DummyJSON LOGIN
+  // Factory untuk DummyJSON LOGIN
   factory UserModel.fromDummyJson(Map<String, dynamic> json) {
     return UserModel(
       email: json['email'] ?? '',
@@ -78,11 +77,11 @@ class UserModel {
     );
   }
 
-  /// 🔥 Factory untuk DummyJSON REGISTER (simulasi)
+  // Factory untuk DummyJSON REGISTER (simulasi)
   factory UserModel.fromRegisterDummy(
     Map<String, dynamic> json,
     String email,
-    String? name, // 👈 tambahan, boleh null
+    String? name, 
   ) {
     return UserModel(
       email: email,

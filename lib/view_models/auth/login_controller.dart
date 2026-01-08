@@ -23,6 +23,7 @@ class LoginController extends ChangeNotifier {
       return true;
     } catch (e) {
       errorMessage = "Terjadi kesalahan. Silakan coba lagi.";
+      // ignore: avoid_print
       print("Login error (Controller): $e");
       return false;
     } finally {

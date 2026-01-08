@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:uap_reusea/views/auth/login_view.dart';
 import 'package:uap_reusea/views/auth/register_view.dart';
+import 'package:uap_reusea/views/chat/chat_view.dart';
 import 'package:uap_reusea/views/navbar/bottom_navbar.dart';
+import 'package:uap_reusea/views/profile/add_product_view.dart';
+import 'package:uap_reusea/views/profile/tabs_product_detail_view.dart';
 import 'package:uap_reusea/views/settings/settings_view.dart';
 import 'package:uap_reusea/views/profile/edit_profile_view.dart';
 import 'package:uap_reusea/views/settings/change_password_view.dart';
@@ -36,6 +39,22 @@ class AppPages {
       name: '/chat-room',
       page: () => const ChatRoomView(),
       transition: Transition.rightToLeft,
+    ),
+
+    GetPage(
+      name: AppRoutes.addProduct,
+      page: () => const AddProductView(),
+      transition: Transition.rightToLeft,
+    ),
+
+    GetPage(
+      name: AppRoutes.tabsProductDetail,
+      page: () => const TabsProductDetailView(), 
+    ),
+
+    GetPage(
+      name: AppRoutes.ChatController,
+      page: () => const ChatView(),
     ),
   ];
 }
