@@ -4,11 +4,23 @@ import 'package:provider/provider.dart';
 import 'package:uap_reusea/routes/app_routes.dart';
 import 'package:uap_reusea/view_models/auth/login_controller.dart';
 
-class LoginView extends StatelessWidget {
-  LoginView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
   final email = TextEditingController();
   final password = TextEditingController();
+
+  @override
+  void dispose() {
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +89,8 @@ class LoginView extends StatelessWidget {
 
                         const SizedBox(height: 48),
 
-                        _inputCard(label: "Email", controller: email),
-
+                        _inputCard(label: "Email or Username", controller: email),
                         const SizedBox(height: 20),
-
                         _inputCard(
                           label: "Password",
                           controller: password,
@@ -105,8 +115,8 @@ class LoginView extends StatelessWidget {
                                       Get.offNamed(AppRoutes.home);
                                     } else {
                                       Get.snackbar(
-                                        "Login gagal",
-                                        "Email atau password salah",
+                                        "Login failed",
+                                        "Email or password is incorrect",
                                       );
                                     }
                                   },

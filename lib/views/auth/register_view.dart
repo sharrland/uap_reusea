@@ -4,12 +4,25 @@ import 'package:provider/provider.dart';
 import 'package:uap_reusea/view_models/auth/register_controller.dart';
 import 'package:uap_reusea/routes/app_routes.dart';
 
-class RegisterView extends StatelessWidget {
-  RegisterView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
+  @override
+  State<RegisterView> createState() => _RegisterViewState();
+}
+
+class _RegisterViewState extends State<RegisterView> {
   final name = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
+
+  @override
+  void dispose() {
+    name.dispose();
+    email.dispose();
+    password.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +108,8 @@ class RegisterView extends StatelessWidget {
                             onPressed: controller.isLoading
                                 ? null
                                 : () async {
-                                    final success = await controller.register(
+                                    final success =
+                                        await controller.register(
                                       name: name.text,
                                       email: email.text,
                                       password: password.text,
