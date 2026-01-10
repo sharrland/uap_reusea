@@ -13,7 +13,7 @@ class ProductDetailView extends StatelessWidget {
     final ProductModel product = Get.arguments as ProductModel;
     final homeController = Get.find<HomeController>();
     
-    // ✅ Get seller from API
+    // Get seller from API
     final seller = homeController.getSellerForProduct(product.id);
 
     return Scaffold(
@@ -79,7 +79,7 @@ class ProductDetailView extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
 
-                          // ✅ REMOVED: Fabric & Available Size (hanya Description)
+                          
 
                           _buildSellerCard(seller),
                         ],
@@ -105,7 +105,7 @@ class ProductDetailView extends StatelessWidget {
             product.thumbnail,
             width: double.infinity,
             height: 322,
-            fit: BoxFit.contain, // ✅ Changed from cover
+            fit: BoxFit.contain, 
             errorBuilder: (context, error, stackTrace) {
               return Container(
                 height: 322,

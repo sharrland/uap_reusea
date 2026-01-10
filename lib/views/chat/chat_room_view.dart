@@ -157,10 +157,10 @@ class _ChatRoomViewState extends State<ChatRoomView> {
                             ? product['price']
                             : product.price;
                         final double originalPrice = (priceValue as num).toDouble();
-                        final double minPrice = originalPrice * 0.6;
+                        final double minPrice = originalPrice * 0.8;
                         
                       if (offer < minPrice) {
-                          final errorText = 'Your offer is too low. Minimum offer is \$${minPrice.toStringAsFixed(2)} (60% of original price)';
+                          final errorText = 'Your offer is too low. Minimum offer is \$${minPrice.toStringAsFixed(2)} (80% of original price)';
                           setModalState(() {
                             errorMessage = errorText;
                           });

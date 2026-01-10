@@ -5,7 +5,7 @@ import 'package:uap_reusea/models/product_model.dart';
 import 'package:uap_reusea/models/chat_model.dart';
 import 'package:uap_reusea/view_models/user_controller.dart';
 import 'package:uap_reusea/view_models/chat_controller.dart';
-import 'package:uap_reusea/view_models/home_controller.dart'; // ✅ Added import
+import 'package:uap_reusea/view_models/home_controller.dart'; 
 
 class MakeOfferView extends StatefulWidget {
   const MakeOfferView({super.key});
@@ -20,10 +20,10 @@ class _MakeOfferViewState extends State<MakeOfferView> {
   late ProductModel product;
   String? _errorMessage;
 
-  // ✅ Helper methods untuk seller info
+  
   String _getSellerName(int productId) {
     try {
-      final homeController = Get.put(HomeController()); // ✅ Changed to Get.put
+      final homeController = Get.put(HomeController()); 
       final seller = homeController.getSellerForProduct(productId);
       return seller.username;
     } catch (e) {
@@ -34,7 +34,7 @@ class _MakeOfferViewState extends State<MakeOfferView> {
 
   String _getSellerAvatar(int productId) {
     try {
-      final homeController = Get.put(HomeController()); // ✅ Changed to Get.put
+      final homeController = Get.put(HomeController()); 
       final seller = homeController.getSellerForProduct(productId);
       return seller.avatar;
     } catch (e) {
@@ -76,9 +76,9 @@ class _MakeOfferViewState extends State<MakeOfferView> {
       return;
     }
 
-    final minPrice = product.price * 0.6;
+    final minPrice = product.price * 0.8;
     if (offerPrice < minPrice) {
-      setState(() => _errorMessage = 'Your offer is too low. Minimum offer is \$${minPrice.toStringAsFixed(2)}  (60% of original price)');
+      setState(() => _errorMessage = 'Your offer is too low. Minimum offer is \$${minPrice.toStringAsFixed(2)}  (80% of original price)');
       return;
     }
 
@@ -123,22 +123,21 @@ class _MakeOfferViewState extends State<MakeOfferView> {
             onPressed: () async {
               Get.back(); // Close dialog
               
-              // ✅ Get or create ChatController
+              
               final chatController = Get.put(ChatController());
               
-              // ✅ Create chat ID and product ID
+              
               final chatId = 'chat_${product.id}';
               final productId = product.id.toString();
               final sellerName = _getSellerName(product.id);
               final sellerAvatar = _getSellerAvatar(product.id);
               
-              // ✅ Check if chat already exists
+             
               final existingChatIndex = chatController.chats.indexWhere((c) => c.id == chatId);
               
-              // ✅ Make offer via ChatController
               await chatController.makeOffer(chatId, productId, offerPrice);
               
-              // ✅ Create ChatModel untuk navigasi
+              
               final chat = ChatModel(
                 id: chatId,
                 sellerId: 'seller_${product.id}',
@@ -150,15 +149,15 @@ class _MakeOfferViewState extends State<MakeOfferView> {
                 product: product,
               );
               
-              // ✅ Add to chat list only if doesn't exist
+              
               if (existingChatIndex == -1) {
                 chatController.chats.add(chat);
               } else {
-                // Update existing chat
+               
                 chatController.chats[existingChatIndex] = chat;
               }
               
-              // ✅ Navigate ke chat room
+             
               Get.back(); // Close make offer
               Get.toNamed('/chat-room', arguments: chat);
             },
